@@ -71,6 +71,9 @@
     <ClCompile Include="..\..\materials.d\Controller.cpp" />
     <ClCompile Include="..\..\materials.d\StarbucksMap.cpp" />
     <ClCompile Include="..\..\materials.d\Tester.cpp" />
+    <ClCompile Include="GraphAlgs.cpp" />
+    <ClCompile Include="ListGraph.cpp" />
+    <ClCompile Include="MatrixGraph.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
