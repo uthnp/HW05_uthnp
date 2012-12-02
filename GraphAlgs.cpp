@@ -43,4 +43,21 @@
 
 std::pair<std::vector<NodeID>, EdgeWeight> TSP(Graph* G)
 {
+	//attempting a recursive method
+	NodeID startNode = 0;
+	std::vector<NodeID>* vect = new std::vector<NodeID>();
+	EdgeWeight dist = 0;
+	return recursiveAlg(G, startNode, vect, dist);
+}
+
+std::pair<std::vector<NodeID>, EdgeWeight> recursiveAlg(Graph* G, NodeID s, std::vector<NodeID>* vect, EdgeWeight dist)
+{
+	//have our base node. s. compare it to all it's neighbors and find the closest one
+	int numNodes = G->size();
+	for (int v = 0; v < numNodes; v++)
+	{
+		//dont use nodes used before (in vect)
+		if (vect->
+	}
+
 }
