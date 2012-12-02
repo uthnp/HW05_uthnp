@@ -34,8 +34,8 @@
 
  EdgeWeight MatrixGraph::weight(NodeID u, NodeID v) const
  {
-	 std::vector<EdgeWeight> t = M.at(u);
-	 double d = t.at(v);
+	 //std::vector<EdgeWeight> t = M.at(u);
+	 //double d = t.at(v);
 	 return (M.at(u)).at(v);
  }
 

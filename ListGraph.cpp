@@ -37,20 +37,17 @@ void ListGraph::addEdge(NodeID u, NodeID v, EdgeWeight weight)
 
 EdgeWeight ListGraph::weight(NodeID u, NodeID v) const
 {
-	/*
-	NWPair temp;
+	EList tList = edgeList.at(u);
 	std::list<NWPair>::iterator iter;
-	iter = (edgeList.at(u)).begin();
-	//to cycle, have to check, then pop... need to retain the data, so we have to put it back in somewhere
-	for (iter; iter != edgeList.at(u).end(); iter++)
+	iter = tList.begin();
+	for (iter; iter != tList.end(); iter++)
 	{
 		if ((*iter).first == v)
 		{
-			return temp.second;
+			return (*iter).second;
 		}
 	}
-	*/
-
+	
 	return -1;
 }
 
