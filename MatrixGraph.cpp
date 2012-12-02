@@ -13,7 +13,7 @@
 
 	 for (int i = 0; i < num_nodes; i++)
 	 {
-		temp = new std::vector<EdgeWeight>(num_nodes, -1);
+		temp = new std::vector<EdgeWeight>(num_nodes, 0);
 		this->M.at(i) = *temp;
 	 }
 
@@ -34,20 +34,23 @@
 
  EdgeWeight MatrixGraph::weight(NodeID u, NodeID v) const
  {
-	 //std::vector<EdgeWeight> t = M.at(u);
+	 //std::vector<EdgeWeight> clone = (M.at(u));
 	 //double d = t.at(v);
 	 return (M.at(u)).at(v);
  }
 
  std::list<NWPair> MatrixGraph::getAdj(NodeID u) const
  {
+	 std::vector<EdgeWeight> clone = M.at(u);
 	 //return a list of pairs (node# and weight of edge between it and u)
 	 std::list<NWPair> results;
 	 NWPair temp;
-	 for (int i = 0; i < M.size(); i++)
+	 for (int i = 0; i < clone.size(); i++)
 	 {
-		 temp = NWPair(i, (M.at(u)).at(i));
-		 results.push_back(temp);
+		 if(clone.at(i) > 0)
+		 {
+			results.push_front( NWPair(i, clone.at(i)));
+		 }
 	 }
 	 return results;
  }
