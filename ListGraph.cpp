@@ -1,5 +1,7 @@
 #include "ListGraph.h"
 
+using namespace std;
+
 ListGraph::ListGraph(int numNodes)
 {
 	// single vector that points to lists w/ respect to each node
@@ -17,6 +19,10 @@ ListGraph::ListGraph(int numNodes)
 	this->num_edges = 0; //initialize as 0 for easy incrementation later
 }
 
+ListGraph::~ListGraph()
+{
+}
+
 void ListGraph::addEdge(NodeID u, NodeID v, EdgeWeight weight)
 {
 	/* Hard way... will add in later
@@ -31,19 +37,19 @@ void ListGraph::addEdge(NodeID u, NodeID v, EdgeWeight weight)
 
 EdgeWeight ListGraph::weight(NodeID u, NodeID v) const
 {
+	/*
 	NWPair temp;
-
+	std::list<NWPair>::iterator iter;
+	iter = (edgeList.at(u)).begin();
 	//to cycle, have to check, then pop... need to retain the data, so we have to put it back in somewhere
-	for (int i = 0; i < edgeList.at(u).size(); i++)
+	for (iter; iter != edgeList.at(u).end(); iter++)
 	{
-		temp = edgeList.at(u).front(); //copy the first item in the list
-		if (temp.first == v)
+		if ((*iter).first == v)
 		{
 			return temp.second;
 		}
-		edgeList.at(u).pop_front(); //take item off main list
-		edgeList.at(u).push_back(temp); //put copy of item back on back-end of list
 	}
+	*/
 
 	return -1;
 }

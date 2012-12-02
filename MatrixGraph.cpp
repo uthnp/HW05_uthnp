@@ -1,7 +1,6 @@
 #include "MatrixGraph.h"
 #include <vector>
 
-
  MatrixGraph::MatrixGraph(unsigned num_nodes)
  {
 	 //num nodes = length of 2D array's sides... use 1D array, but it wraps
@@ -9,9 +8,9 @@
 	 // if there is no edge between the two, put -1
 
 	 //create a vector for each node, set all it's internal values to -1 and put it into M
+	 M = std::vector<std::vector<EdgeWeight>>(num_nodes);
 	 std::vector<EdgeWeight>* temp;
 
-	 std::vector<EdgeWeight>* temp;
 	 for (int i = 0; i < num_nodes; i++)
 	 {
 		temp = new std::vector<EdgeWeight>(num_nodes, -1);
@@ -20,6 +19,10 @@
 
 	 //initialize the number of edges to 0 so we can easily increment it later
 	 this->num_edges = 0;
+ }
+
+ MatrixGraph::~MatrixGraph()
+ {
  }
 
  void MatrixGraph::addEdge(NodeID u, NodeID v, EdgeWeight weight)
@@ -31,6 +34,8 @@
 
  EdgeWeight MatrixGraph::weight(NodeID u, NodeID v) const
  {
+	 std::vector<EdgeWeight> t = M.at(u);
+	 double d = t.at(v);
 	 return (M.at(u)).at(v);
  }
 
