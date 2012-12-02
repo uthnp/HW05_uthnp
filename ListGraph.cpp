@@ -32,6 +32,7 @@ void ListGraph::addEdge(NodeID u, NodeID v, EdgeWeight weight)
 	}*/
 	//easy way, doesnt check for doubles
 	edgeList.at(u).push_back(*(new NWPair(v,weight)));
+	edgeList.at(v).push_back(*(new NWPair(u,weight)));
 	this->num_edges++;
 }
 
@@ -48,7 +49,7 @@ EdgeWeight ListGraph::weight(NodeID u, NodeID v) const
 		}
 	}
 	
-	return -1;
+	return 0;
 }
 
 std::list<NWPair> ListGraph::getAdj(NodeID u) const
