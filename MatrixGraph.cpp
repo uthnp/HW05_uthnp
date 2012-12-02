@@ -15,6 +15,7 @@
 	 {
 		temp = new std::vector<EdgeWeight>(num_nodes, 0);
 		this->M.at(i) = *temp;
+		delete temp;
 	 }
 
 	 //initialize the number of edges to 0 so we can easily increment it later
