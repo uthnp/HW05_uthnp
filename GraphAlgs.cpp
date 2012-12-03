@@ -83,10 +83,17 @@ std::pair<std::vector<NodeID>, EdgeWeight> recurseDepth(Graph* G, NodeID current
 
 	std::list<NWPair>::iterator iter = adj.begin(); //iterator for the list
 	
-
-	if (!existsInVector(path, iter->first)) //get a base path for comparison
+	bool key = true;
+	while (key)
 	{
-		iter++;
+		if (iter == adj.end())
+		{
+			return std::pair<std::vector<NodeID>, EdgeWeight> (*path, weight);
+		}
+		if(existsInVector(path, iter->first)) //get a base path for comparison
+			iter++;
+		else
+			key = false;
 	}
 	
 	minPair = recurseDepth(G, iter->first, path, weight);
