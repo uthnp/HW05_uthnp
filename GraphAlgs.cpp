@@ -65,28 +65,32 @@ std::pair<std::vector<NodeID>, EdgeWeight> recurseDepth(Graph* G, NodeID current
 {
 	//conditional clauses
 	if (currentNode < 0) {return std::pair<std::vector<NodeID>, EdgeWeight> (NULL, 0);}
+	if (path->size() == G->size()) {return std::pair<std::vector<NodeID>, EdgeWeight> (*path, weight);}
 	//if (existsInVector(path, currentNode)) {return std::pair<std::vector<NodeID>, EdgeWeight> (NULL, 0);}
 
 	//update the path and weight
-	if (path->size() > 1)
+	if (path->size() > 0)
 		weight += G->weight(path->back(),currentNode);
 	path->push_back(currentNode);
 
-	if (path->size() == G->size()) {return std::pair<std::vector<NodeID>, EdgeWeight> (*path, weight);}
-
 	//get the list of adjacent nodes
 	std::list<NWPair> adj = G->getAdj(currentNode);
+	//remove visited pairs
 
 	// create placeholder that will hold the info about the path with the smallest weight
 	std::pair<std::vector<NodeID>, EdgeWeight> minPair;
 	std::pair<std::vector<NodeID>, EdgeWeight> tempPair;
 
 	std::list<NWPair>::iterator iter = adj.begin(); //iterator for the list
+	
 
 	if (!existsInVector(path, iter->first)) //get a base path for comparison
 	{
-		minPair = recurseDepth(G, iter->first, path, weight);
+		iter++;
 	}
+	
+	minPair = recurseDepth(G, iter->first, path, weight);
+	iter++;
 
 	//loop through all option paths and recurse down each... compare each recursion to it's competetors, one with the shortest path stays
 	for (iter; iter != adj.end(); iter++)
