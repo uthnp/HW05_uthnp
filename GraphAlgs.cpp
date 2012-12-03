@@ -41,23 +41,74 @@
 	}
 }*/
 
+// searches a vector object (like those used in the graph classes) for an item. If the item is inside the vector, returns true.
+// returns false otherwise
+bool existsInVector(std::vector<NodeID>* vector, NodeID item)
+{
+	std::vector<NodeID>* clone = new std::vector<NodeID>(*vector);
+
+	while (clone->size() > 0)
+	{
+		if (clone->back() == item)
+		{
+			delete clone;
+			return true;
+		}
+		clone->pop_back();
+	}
+
+	delete clone;
+	return false;
+}
+
+std::pair<std::vector<NodeID>, EdgeWeight> recurseDepth(Graph* G, NodeID currentNode, std::vector<NodeID>* path, EdgeWeight weight)
+{
+	//conditional clauses
+	if (currentNode < 0) {return std::pair<std::vector<NodeID>, EdgeWeight> (NULL, 0);}
+	//if (existsInVector(path, currentNode)) {return std::pair<std::vector<NodeID>, EdgeWeight> (NULL, 0);}
+
+	//update the path and weight
+	if (path->size() > 1)
+		weight += G->weight(path->back(),currentNode);
+	path->push_back(currentNode);
+
+	if (path->size() == G->size()) {return std::pair<std::vector<NodeID>, EdgeWeight> (*path, weight);}
+
+	//get the list of adjacent nodes
+	std::list<NWPair> adj = G->getAdj(currentNode);
+
+	// create placeholder that will hold the info about the path with the smallest weight
+	std::pair<std::vector<NodeID>, EdgeWeight> minPair;
+	std::pair<std::vector<NodeID>, EdgeWeight> tempPair;
+
+	std::list<NWPair>::iterator iter = adj.begin(); //iterator for the list
+
+	if (!existsInVector(path, iter->first)) //get a base path for comparison
+	{
+		minPair = recurseDepth(G, iter->first, path, weight);
+	}
+
+	//loop through all option paths and recurse down each... compare each recursion to it's competetors, one with the shortest path stays
+	for (iter; iter != adj.end(); iter++)
+	{
+		if (!existsInVector(path, iter->first)) //get a base path for comparison
+		{
+			tempPair = recurseDepth(G, iter->first, path, weight);
+			if (tempPair.second < minPair.second)
+			{
+				minPair = tempPair;
+			}
+		}
+	}
+
+	return minPair;
+}
+
 std::pair<std::vector<NodeID>, EdgeWeight> TSP(Graph* G)
 {
 	//attempting a recursive method
 	NodeID startNode = 0;
 	std::vector<NodeID>* vect = new std::vector<NodeID>();
 	EdgeWeight dist = 0;
-	return recursiveAlg(G, startNode, vect, dist);
-}
-
-std::pair<std::vector<NodeID>, EdgeWeight> recursiveAlg(Graph* G, NodeID s, std::vector<NodeID>* vect, EdgeWeight dist)
-{
-	//have our base node. s. compare it to all it's neighbors and find the closest one
-	int numNodes = G->size();
-	for (int v = 0; v < numNodes; v++)
-	{
-		//dont use nodes used before (in vect)
-		if (vect->
-	}
-
+	return recurseDepth(G, startNode, vect, dist);
 }
