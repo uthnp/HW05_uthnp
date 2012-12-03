@@ -1,45 +1,16 @@
+/* 
+ * @author Nicholas Uth
+ *
+ * This cpp file satisfies the TSP aspects of the homework (C & D). The results are at least accurate with the testing
+ * methods. Since the TSP search works on a recursive pattern (based on depth-first search) it should be faster than the
+ * brute force methods (although, it's still somewhat slow, over 2 seconds each analysis when more than 100 nodes are involved).
+ *
+ */
+
 #include "GraphAlgs.h"
 #include <queue>
 #include "Graph.h"
 
-/* 
- * Solves the Traveling Salesperson Problem: finding the shortest cycle through a graph that 
- *  vists every node exactly once (with exception of the first node, which is repeated as the 
- *  last node in the cycle.)
- *
- * Return value: Return a pair, with the first element being a vector of length n listing the 
- *  order of the nodes in the cycle (do NOT list the start node twice), and the second element
- *  being the length of that path (do NOT forget to include the edge from the last node back to
- *  the start node in the total length.
- *
- * Preconditions: 
- *     G is undirected.
- *     Every pair of nodes u,v  (u != v) has an edge connecting them of weight > 0.
- */
-
-/*std::pair<std::vector<NodeID>, EdgeWeight> TSP(Graph* G)
-{
-	NodeID s = 0; //starting node
-	std::queue<NodeID> openList;
-	int* seenList;
-	openList.push(s);
-	seenList[s] = s;
-	
-	NodeID u;
-	while(!openList.empty())
-	{
-		u = openList.front(); openList.pop();
-		//for loop... use iterator to go through all neighbors of u
-		for(int v = 0; v < G->size(); v++)
-		{
-			if (seenList[v] < 0)
-			{
-				seenList[v] = u;
-				openList.push(v);
-			}
-		}
-	}
-}*/
 
 // searches a vector object (like those used in the graph classes) for an item. If the item is inside the vector, returns true.
 // returns false otherwise
@@ -121,5 +92,10 @@ std::pair<std::vector<NodeID>, EdgeWeight> TSP(Graph* G)
 	NodeID startNode = 0;
 	std::vector<NodeID>* vect = new std::vector<NodeID>();
 	EdgeWeight dist = 0;
-	return recurseDepth(G, startNode, vect, dist);
+
+	std::pair<std::vector<NodeID>, EdgeWeight> results;
+	results = recurseDepth(G, startNode, vect, dist);
+	results.second += G->weight(startNode, vect->back()); //to get the distance required to get back to the first location
+
+	return results;
 }

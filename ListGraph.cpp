@@ -1,3 +1,9 @@
+/*
+ * @author Nicholas Uth
+ * 
+ * Satisfies the Adjacency List requirement for the homework (A). The class passes the built in testing methods.
+ */
+
 #include "ListGraph.h"
 
 using namespace std;

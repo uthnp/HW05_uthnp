@@ -1,3 +1,9 @@
+/*
+ * @author Nicholas Uth
+ * 
+ * Satisfies the Adjacency Matrix requirement for the homework (B). The class passes the built in testing methods.
+ */
+
 #include "MatrixGraph.h"
 #include <vector>
 
